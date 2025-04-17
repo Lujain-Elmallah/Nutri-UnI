@@ -336,4 +336,40 @@ router.put("/week-menu/:id", async (req, res) => {
   res.status(200).json(data);
 });
 
+/**
+ * GET /week-menu/filter?dining_hall=Marketplace&counter=Chakra
+ * This fetches meals for a specific dining hall + counter
+ */
+router.get("/week-menu/filter", async (req, res) => {
+  const { dining_hall, counter } = req.query;
+
+  const { data, error } = await supabase
+    .from("week_menu")
+    .select(`
+      id,
+      dining_hall,
+      counter,
+      date_available,
+      food_info (
+        item_name,
+        item_photo_link,
+        veg,
+        vegan,
+        gluten_free,
+        allergens,
+        energy,
+        fats,
+        protein,
+        salt,
+        sugar
+      )
+    `)
+    .eq("dining_hall", dining_hall)
+    .eq("counter", counter); 
+
+  if (error) return res.status(500).json({ error: error.message });
+  res.status(200).json(data);
+});
+
 export default router;
+

@@ -18,7 +18,7 @@ const RoleRedirector = () => {
     if (currentPath === "/") {
       if (role === "admin") {
         navigate("/admin/dashboard");
-      } else if (role === "student") {
+      } else{
         navigate("/student/dashboard");
       }
     }

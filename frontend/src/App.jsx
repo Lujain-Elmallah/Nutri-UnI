@@ -83,15 +83,22 @@ function App() {
         </SignedOut>
         <SignedIn>
           <UserButton />
+          {/* <RoleRedirector />
+          <StudentInitializer /> */}
         </SignedIn>
       </header>
 
-      <SignedIn>
-        <RoleRedirector />
-        <StudentInitializer />
-      </SignedIn>
-
       <Routes>
+        
+      <Route
+        path="/"
+        element={
+          <SignedIn>
+            <RoleRedirector />
+          </SignedIn>
+        }
+      />
+
         <Route
           path="/admin/dashboard"
           element={
@@ -135,6 +142,8 @@ function App() {
             </SignedIn>
           }
         />
+
+      
       </Routes>
     </Router>
   );
